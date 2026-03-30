@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  linkedin-enricher:
+    build: .
+    container_name: linkedin-enricher
+    environment:
+      - DB_HOST=fshackathon.fsgarage.in
+      - DB_PORT=5447
+      - DB_NAME=enrich
+      - DB_USER=admin
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SCRAPER_API_URL=https://scraper-api.fsgarage.in
+      - BATCH_SIZE=50
+      - REQUESTS_PER_SECOND=2.0
+      - USE_FALLBACK_SEARCH=true
+    restart: unless-stopped
+    # Run with limit for testing
+    # command: ["python", "enrich_linkedin.py", "--limit", "100"]
